@@ -139,7 +139,7 @@ int insert_binary_tree_node(BinaryTreeNode **head, int data)
  * 
  * This function prints a binary search tree making use of inorder route
  */
-void print_binary_tree_inorder_route(BinaryTreeNode *head)
+static void auxiliar_print_binary_tree_inorder_route(BinaryTreeNode *head)
 {
   /**
    * 1) If given head is null, we stop the calling of recursive function
@@ -153,7 +153,16 @@ void print_binary_tree_inorder_route(BinaryTreeNode *head)
    * 2) Prints binary search tree giving priority to the left side, next, to the head
    * and finally, to the right side
    */
-  print_binary_tree_inorder_route(head->left);
+  auxiliar_print_binary_tree_inorder_route(head->left);
   printf("%d -> ", head->data);
-  print_binary_tree_inorder_route(head->right);
+  auxiliar_print_binary_tree_inorder_route(head->right);
+}
+
+void print_binary_tree_inorder_route(BinaryTreeNode *head) {
+  if (head == NULL) {
+    return;
+  }
+
+  auxiliar_print_binary_tree_inorder_route(head);
+  printf("END\n");
 }
