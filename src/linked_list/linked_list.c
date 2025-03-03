@@ -112,10 +112,10 @@ LinkedListNode *take_penultimate_from_linked_list(LinkedListNode *head)
   LinkedListNode *current_node = head;
 
   /**
-   * !. We iterates over all the node until we found the node that goes before
+   * 1. We iterates over all the node until we found the node that goes before
    * last node in linked list
    */
-  while (current_node->next->next == NULL)
+  while (current_node->next->next != NULL)
   {
     current_node = current_node->next;
   }
@@ -364,7 +364,7 @@ int append_linked_list(LinkedListNode **head, int data)
  * 
  * 1. if Head Node is a null pointer, then this function will return 0
  */
-int free_linked_list(LinkedListNode *head) {
+int free_linked_list(LinkedListNode **head) {
   /**
    * Security measure: if variable is a null pointer, we must return 0
    */
@@ -373,13 +373,22 @@ int free_linked_list(LinkedListNode *head) {
   }
 
   /**
+   * Security measure: if variable is a null pointer, we must return 0
+   */
+  if (*head == NULL) {
+    return 0;
+  }
+
+  /**
    * 1. Shift all nodes until the list is empty
    */
   int deleted_nodes = 0;
 
-  while (shift_linked_list(&head) == 1) {
+  while (shift_linked_list(head) == 1) {
     deleted_nodes++;
   }
+
+  *head = NULL;
 
   return deleted_nodes;
 }
@@ -404,7 +413,13 @@ void print_linked_list(LinkedListNode *head) {
    * Security measure: if Head Node is a null pointer, this function will print NULL
    */
   if (head == NULL) {
-    printf("NULL");
+    printf("NULL\n");
+    return;
+  }
+
+  if (head->next == NULL) {
+    printf("%d -> NULL\n", head->data);
+    return;
   }
 
   /**
@@ -412,7 +427,7 @@ void print_linked_list(LinkedListNode *head) {
    */
   LinkedListNode* current_node = head;
 
-  while (current_node->next != NULL) {
+  while (current_node != NULL) {
     printf("%d -> ", current_node->data);
     current_node = current_node->next;
   }
@@ -420,5 +435,5 @@ void print_linked_list(LinkedListNode *head) {
   /**
    * 2) Prints null at the end of the printf because last pointer is a null pointer
    */
-  printf("NULL");
+  printf("NULL\n");
 }
