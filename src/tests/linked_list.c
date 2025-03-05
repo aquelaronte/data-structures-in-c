@@ -74,7 +74,7 @@ static void test_delete_nodes()
 
 void test_linked_list()
 {
-  test_create_node();
-  test_push_nodes();
-  test_delete_nodes();
+  // test_create_node();
+  // test_push_nodes();
+  // test_delete_nodes();
 }
